@@ -2,8 +2,6 @@
 
 # This file contains settings for ActionController::ParamsWrapper which
 # is enabled by default.
-byebug
-foo = "hello world"
 
 # Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
 ActiveSupport.on_load(:action_controller) do
