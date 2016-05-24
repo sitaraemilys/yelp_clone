@@ -5,6 +5,9 @@ group :test do
   gem 'capybara'
 end
 
+# helps us test some of those hard to reach parts
+gem 'shoulda'
+
 gem 'haml'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
