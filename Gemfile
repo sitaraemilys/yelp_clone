@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# handles building a user model, routes for your users controller
+gem 'devise'
+
 gem 'rspec-collection_matchers'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
