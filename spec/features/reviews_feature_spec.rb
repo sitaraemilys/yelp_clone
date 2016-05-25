@@ -13,4 +13,11 @@ feature 'reviewing' do
 		expect(page).to have_content("so so")
 		expect(current_path).to eq("/restaurants")
 	end
+
+	context 'user is not signed in' do
+		it 'should not see review restaurant' do
+			visit('/')
+			expect(page).not_to have_link 'Review KFC'
+		end
+	end
 end

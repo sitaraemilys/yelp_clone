@@ -26,7 +26,16 @@ feature 'Restaurants' do
 
 	context 'creating restaurants' do
 
-		scenario 'prompts user with form, then displays new restaurant' do
+		before do
+			visit('/')
+			click_link('Sign up')
+			fill_in('Email', with: 'sity@pop.com')
+			fill_in('Password', with: 'secret')
+			fill_in('Password confirmation', with: 'secret')
+			click_button('Sign up')
+		end
+
+		it 'prompts user with form, then displays new restaurant' do
 			visit '/restaurants'
 			click_link 'Add a restaurant'
 			fill_in 'Name', with: 'KFC'
@@ -40,7 +49,7 @@ feature 'Restaurants' do
 				click_link 'Add a restaurant'
 				fill_in 'Name', with: 'kf'
 				click_button 'Create Restaurant'
-				
+
 				expect(page).not_to have_css 'h2', text: 'kf'
 				expect(page).to have_content 'error'
 			end
@@ -63,6 +72,14 @@ feature 'Restaurants' do
 	context 'editing restaurants' do
 
 		before { Restaurant.create(name: 'KFC', description: 'Shallow fried goodness') }
+		before do
+			visit('/')
+			click_link('Sign up')
+			fill_in('Email', with: 'sity@pop.com')
+			fill_in('Password', with: 'secret')
+			fill_in('Password confirmation', with: 'secret')
+			click_button('Sign up')
+		end
 
 		scenario 'lets user edit a restaurant' do
 			visit '/restaurants'
@@ -79,6 +96,15 @@ feature 'Restaurants' do
 	context 'deleting restaurants' do
 
 		before { Restaurant.create(name: 'KFC', description: 'Shallow fried goodness') }
+
+		before do
+			visit('/')
+			click_link('Sign up')
+			fill_in('Email', with: 'sity@pop.com')
+			fill_in('Password', with: 'secret')
+			fill_in('Password confirmation', with: 'secret')
+			click_button('Sign up')
+		end
 
 		scenario 'lets user delete a restaurant' do
 			visit '/restaurants'

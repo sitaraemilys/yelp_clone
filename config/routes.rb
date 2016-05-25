@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :restaurants do
     resources :reviews
   end
@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    root 'restaurants#index'
+
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
