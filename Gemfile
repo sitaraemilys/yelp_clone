@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', :groups => [:development, :test]
+
+gem 'omniauth-facebook'
 # handles building a user model, routes for your users controller
 gem 'devise'
 
