@@ -72,24 +72,36 @@ feature 'Restaurants' do
 	context 'editing restaurants' do
 
 		before { Restaurant.create(name: 'KFC', description: 'Shallow fried goodness') }
-		before do
-			visit('/')
-			click_link('Sign up')
-			fill_in('Email', with: 'sity@pop.com')
-			fill_in('Password', with: 'secret')
-			fill_in('Password confirmation', with: 'secret')
-			click_button('Sign up')
+
+		context 'user is signed in' do
+
+			before do
+				visit('/')
+				click_link('Sign up')
+				fill_in('Email', with: 'sity@pop.com')
+				fill_in('Password', with: 'secret')
+				fill_in('Password confirmation', with: 'secret')
+				click_button('Sign up')
+			end
+
+			it 'lets user edit a restaurant' do
+				visit '/restaurants'
+				click_link 'Edit KFC'
+				fill_in 'Name', with: 'KFC'
+				fill_in 'Description', with: 'Deep fried goodness'
+				click_button 'Update Restaurant'
+				expect(page).to have_content("KFC")
+				expect(page).to have_content("Deep fried goodness")
+				expect(current_path).to eq("/restaurants")
+			end
 		end
 
-		scenario 'lets user edit a restaurant' do
-			visit '/restaurants'
-			click_link 'Edit KFC'
-			fill_in 'Name', with: 'KFC'
-			fill_in 'Description', with: 'Deep fried goodness'
-			click_button 'Update Restaurant'
-			expect(page).to have_content("KFC")
-			expect(page).to have_content("Deep fried goodness")
-			expect(current_path).to eq("/restaurants")
+		context 'user is not signed in' do
+			it 'should not able to edit a restaurant' do
+				visit '/restaurants'
+				click_link 'Edit KFC'
+				expect(page).to have_link 'Sign in'
+			end
 		end
 	end
 
@@ -97,20 +109,30 @@ feature 'Restaurants' do
 
 		before { Restaurant.create(name: 'KFC', description: 'Shallow fried goodness') }
 
-		before do
-			visit('/')
-			click_link('Sign up')
-			fill_in('Email', with: 'sity@pop.com')
-			fill_in('Password', with: 'secret')
-			fill_in('Password confirmation', with: 'secret')
-			click_button('Sign up')
+		context 'user is signed in' do
+			before do
+				visit('/')
+				click_link('Sign up')
+				fill_in('Email', with: 'sity@pop.com')
+				fill_in('Password', with: 'secret')
+				fill_in('Password confirmation', with: 'secret')
+				click_button('Sign up')
+			end
+
+			it 'lets user delete a restaurant' do
+				visit '/restaurants'
+				click_link 'Delete KFC'
+				expect(page).not_to have_content("KFC")
+				expect(page).to have_content("Restaurant deleted successfully")
+			end
 		end
 
-		scenario 'lets user delete a restaurant' do
-			visit '/restaurants'
-			click_link 'Delete KFC'
-			expect(page).not_to have_content("KFC")
-			expect(page).to have_content("Restaurant deleted successfully")
+		context 'user is not signed in' do
+			it 'should not be able to delete a restaurant' do
+				visit('/')
+				click_link 'Delete KFC'
+				expect(page).to have_link 'Sign in'
+			end
 		end
 	end
 
