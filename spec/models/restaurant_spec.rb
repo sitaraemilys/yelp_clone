@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Restaurant, :type => :model do
   it 'is not valid with a name of less than three characters' do
