@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 feature 'Reviewing' do
-	before { Restaurant.create(name: 'KFC') }
+
+before { Restaurant.create(name: 'KFC') }
 
 context 'user is signed in' do
 	before do
@@ -11,17 +12,18 @@ context 'user is signed in' do
 		fill_in('Password', with: 'secret')
 		fill_in('Password confirmation', with: 'secret')
 		click_button('Sign up')
+
 	end
 
 	it 'allows users to leave a review using a form' do
-		visit '/restaurants'
+		visit '/'
 		click_link 'Review KFC'
 		fill_in 'Thoughts', with: 'so so'
 		select '3', from: 'Rating'
 		click_button 'Leave Review'
 
 		expect(page).to have_content("so so")
-		expect(current_path).to eq("/restaurants")
+		expect(current_path).to eq("/")
 	end
 end
 
