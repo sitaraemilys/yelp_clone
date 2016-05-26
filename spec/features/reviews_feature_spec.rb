@@ -23,7 +23,7 @@ context 'user is signed in' do
 		click_button 'Leave Review'
 
 		expect(page).to have_content("so so")
-		expect(current_path).to eq("/")
+		expect(current_path).to eq("/restaurants")
 	end
 end
 
