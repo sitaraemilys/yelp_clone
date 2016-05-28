@@ -1,4 +1,6 @@
 class Restaurant < ActiveRecord::Base
+	extend WithUserAssociationExtension
+
 	has_many :reviews,
 		-> { extending WithUserAssociationExtension },
 	dependent: :destroy
